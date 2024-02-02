@@ -23,7 +23,7 @@ arreglo		.asciiz "yo voy a pasar estructuras (){}([{RRR}])"
 # sección de texto
 .text
 
-#función principal
+# programa principal
 main:
 	la $a0, arreglo			# cargar en $a0 la direccion del arreglo de caracteres por analizar 
 	
