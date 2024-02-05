@@ -33,7 +33,7 @@
 # - Si no se cumple la condición, se comprueba cual parentesis que cierra es el que está actualmente más arriba en la pila, y se obtienen los
 #   parentesis Que no cierran (por ejemplo: si está apilado ")", los parentesis que no cierran son "]" y "}")
 # - Se comparan los parentesis que no cierran con string[i] y "\0". Si alguno de ellos es equivalente a string[i], los parentesis no van a ser válidos y entonces $v0 = 0.
-# - Si string[i] no es equivalente a los parentesis que cierran o a "\0", se sigue al siguiente caracter 
+# - Si string[i] no es equivalente a los parentesis que no cierran o a "\0", se sigue al siguiente caracter 
 # 
 # Note que el único caso en el que se devuelve $v0 = 1 es al terminar de analizar el string, lo cual permite detectar cadenas de parentesis válidos que son disjuntas en un mismo
 # string.
@@ -50,7 +50,7 @@
 parValido:	.asciiz "parentesis validos"
 parInvalido:	.asciiz "parentesis invalidos"
 
-arreglo:	.asciiz "((((((((((((((((((((((((((((((((((((((((((((((((((((((((("
+arreglo:	.asciiz "(((([[[[{{{{}}}}]]]]))))"
 
 # sección de texto
 .text
@@ -195,15 +195,27 @@ desapilarYcontinuar:
 	addi $a1, $a1, -1		# stackCounter--
 	j siguienteCaracter
 
+# parentesisQueCierra = ")"
 parentesisCierra:
 	beq $t2, $s3, endInvalidoSP	# saltar si A[i] = "]"	
 	beq $t2, $s5, endInvalidoSP	# saltar si A[i] = "}"	
 	beq $t2, $0,  endInvalidoSP	# saltar si A[i] = "\0"	
 	j siguienteCaracter
-	
-corcheteCierra:
 
+# parentesisQueCierra = "]"
+corcheteCierra:
+	beq $t2, $s1, endInvalidoSP	# saltar si A[i] = ")"	
+	beq $t2, $s5, endInvalidoSP	# saltar si A[i] = "}"	
+	beq $t2, $0,  endInvalidoSP	# saltar si A[i] = "\0"	
+	j siguienteCaracter
+
+# parentesisQueCierra = "}"
 llaveCierra:
+	beq $t2, $s1, endInvalidoSP	# saltar si A[i] = ")"	
+	beq $t2, $s3, endInvalidoSP	# saltar si A[i] = "]"	
+	beq $t2, $0,  endInvalidoSP	# saltar si A[i] = "\0"	
+	j siguienteCaracter
+
 #####################################################################################################################
 # 					FINALIZAR LOOP Y DEVOLVER VALIDEZ DE PARENTESIS
 #####################################################################################################################
