@@ -97,5 +97,6 @@ errorSolicitud:
 printInt:
 	addi $v0, $0, 1			# cargar código (1) en $v0 para imprimir un int
 	syscall				# syscall para imprimir un int
+	jr $ra				# volver al punto de llamado
 mcd:
 	jr $ra				# POR IMPLEMENTAR
