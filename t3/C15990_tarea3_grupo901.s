@@ -63,15 +63,15 @@ msgMCD:			.asciiz "El MCD entre los números ingresados es: "
 main:
 	jal solicitudMCD		# saltar a la función solicitudMCD para obtener a y b del usuario
 	
-	add $a0, $v0, 0 		# inicializar $a0 = a para la función mcd
-	add $a1, $v1, 0			# inicializar $a1 = b para la función mcd
+	add $a0, $v0, $0 		# inicializar $a0 = a para la función mcd
+	add $a1, $v1, $0		# inicializar $a1 = b para la función mcd
 	jal mcd				# saltar a la función mcd para calcular mcd(a,b)
-	add $t0, $v0, 0			# guardar temporalmente en $t0 = mcd(a,b)  
+	add $t0, $v0, $0		# guardar temporalmente en $t0 = mcd(a,b)  
 	
 	la $a0, msgMCD    		# inicializar $a0 = Dir[msgMCD]
 	jal printStr			# saltar a la función printStr para imprimir mensaje para desplegar mcd(a,b)
 	
-	add $a0, $t0, 0			# inicializar $a0 = mcd(a,b) para imprimir mcd(a,b) 
+	add $a0, $t0, $0		# inicializar $a0 = mcd(a,b) para imprimir mcd(a,b) 
 	jal printInt 			# saltar a la función para imprimir mcd(a,b)
 
 	j main				# volver a solicitar a y b para calcular mcd(a,b)
