@@ -23,7 +23,7 @@ msgMCD:			.asciiz "El MCD entre los números ingresados es: "
 # sección de texto
 .text
 ############################################################################################################
-#						MAIN
+#						MAIN							   #
 ############################################################################################################	
 main:
 	jal solicitudMCD		# saltar a la función solicitudMCD para obtener a y b del usuario
@@ -42,7 +42,7 @@ main:
 	j main				# volver a solicitar a y b para calcular mcd(a,b)
 
 ############################################################################################################
-#			SOLICITUD DE INTS DEL USUARIO, E IMPRESIÓN DE STRINGS E INTS  
+#			SOLICITUD DE INTS DEL USUARIO, E IMPRESIÓN DE STRINGS E INTS  			   #
 ############################################################################################################	
 solicitudMCD:
 	addi $sp, $sp, -4		# ajustar stack pointer para apilar un word
@@ -98,5 +98,9 @@ errorSolicitud:
 	lw $ra, 0($sp)			# recuperar valor de $ra apilado
 	addi $sp, $sp, 4		# ajustar stack pointer a su valor previo al llamado de la función
 	jr $a3				# saltar a la instrucción en la dirección $a3, para volver a solicitar al usuario a, o b
+
+############################################################################################################
+#			FUNCIÓN MCD PARA CALCULAR EL MÁXIMO COMÚN DIVISOR DE A Y B       		   #
+############################################################################################################	
 mcd:
 	jr $ra				# POR IMPLEMENTAR
