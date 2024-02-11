@@ -49,23 +49,27 @@ solicitudMCD:
 	la $a0, msgSolicitud_a 	# inicializar $a0 = Dir[msgSolicitud_a]
 	jal printStr		# saltar a la función printStr para imprimir msgSolicitud_a
 	jal readInt		# saltar a la función readInt para leer un int de la terminal, y devolver $v0 = a
-	
-	la $a1, msgSolicitud_b	# incializar $a1 = Dir[msgSolicitud_b]
+	add $t0, $v0, $0	# cargar en $t0 = $v0 = a, después de haber sido leido de la terminal
+		
+	la $a0, msgSolicitud_b	# incializar $a1 = Dir[msgSolicitud_b]
 	jal printStr		# saltar a la función printStr para imprimir msgSolicitud_b
 	jal readInt		# saltar a la función readInt para leer un int de la terminal, y devolver $v0 = b
+	add $t1, $v0, $0	# cargar en $t1 = $v0 = b, después de haber sido leido de la terminal
 	
 	lw $ra, 0($sp)		# recuperar valor de $ra apilado
 	addi $sp, $sp, 4	# ajustar stack pointer a su valor previo al llamado de la función
 	jr $ra			# volver al punto de llamado
 printStr:
-
-printInt:
-
+	addi $v0, $0, 4		# cargar código (4) en $v0 para imprimir string en $a0 = Dir[string]
+	syscall			# syscall para imprimir string
+	jr $ra
 readInt:
-
+	addi $v0, $0, 5		# cargar código (5) en $v0 para leer un int de la terminal y guardar en $v0 = integer
+	syscall
+	jr $ra			# syscall para leer int 
+printInt:
+	
 mcd:
-
-
 
 # prueba, para verificar main y terminar el programa (no se va a terminar con un syscall en el programa final)
 li $v0, 10
