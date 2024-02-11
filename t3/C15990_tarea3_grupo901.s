@@ -103,4 +103,14 @@ errorSolicitud:
 #			FUNCIÓN MCD PARA CALCULAR EL MÁXIMO COMÚN DIVISOR DE A Y B       		   #
 ############################################################################################################	
 mcd:
-	jr $ra				# POR IMPLEMENTAR
+	beq $a1, $0, mcdEnd		# si b == 0, saltar a mcdEnd para devolver mcd(a,b) en $a0 
+	
+	div $a0, $a1			# $a0 / $a1 para obtener el residuo a mod b
+	add $a0, $a1, $0		# $a0 = b, va ser ahora el primer parámetro de la función mcd
+	mfhi $a1			# $a1 = a mod b
+	
+	j mcd				# ejecutar la función con distintos parámetros, mcd(b, a mod b)
+	
+	mcdEnd:
+	add $v0, $a0, $0		# cargar en $v0 = a = mcd(a,b)
+	jr $ra				# volver al punto de llamado
