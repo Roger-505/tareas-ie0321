@@ -13,6 +13,41 @@
 #
 # https://github.com/Roger-505/tareas-ie0321.git
 
+#########################################################################################################################
+#					EXPLICACIÓN DE LA IMPLEMENTACIÓN						#		   		   
+#########################################################################################################################
+# 															#
+# Se implementaron 6 funciones para resolver el problema indicado en el enunciado de la tarea:				#
+# 															#
+# 	   mcd: Calcula el máximo común divisor de dos números enteros mayores a cero, por medio del algoritmo de  	#
+#		Euclides tradicional, implementado de manera recurrente.						#
+#		- Argumentos: $a0 = a (primer número), $a1 = b (segundo número)						#
+#		- Returns: $v0 = mcd(a,b) (el máximo común divisor de a y b)						#
+#															#
+# solicitudMCD:	Solicita dos números al usuario. Si el usuario digita un número menor a 0, se desplega			#
+#		un mensaje de error y se vuelve a solicitar el número en cuestión.					#
+#		- Argumentos: No posee argumentos de entrada.								#
+#		- Returns: $v0 = a (primer número), $v1 = b (segundo número)						#
+#															#
+#     printStr:	Imprime en la terminal un string por medio de un syscall.						#
+#		- Argumentos: $a0 = Dir[string]										#
+#		- Returns: Impresión de string en la terminal								#
+#															#	
+#     printInt:	Imprime en la terminal un int por medio de un syscall							#
+#		- Argumentos: $a0 = integer										#
+#		- Returns: Impresión de integer en la terminal								#
+#															#
+#      readInt: Lee de la terminal un int.										#
+#		- Argumetnos: No posee argumentos de entrada.								#
+#		- Returns: $v0 = integer										#
+#															#
+# errorSolicitud: Imprime un mensaje de error en la terminal, en caso de que a < 0 o b < 0.				#
+#		- Argumentos: $a3 = Dir[solicitudLoop_<a,b>], para saltar a la etiqueta y 				#
+#		  volver a solicitar el núḿero después de desplegar el mensaje de error.				#
+#		- Returns: Impresión de msgError en la terminal.							#
+#															#
+#########################################################################################################################
+
 # sección de data
 .data
 msgError:		.asciiz "Porfavor, digite únicamente números mayores que 0\n"
@@ -114,3 +149,4 @@ mcd:
 	mcdEnd:
 	add $v0, $a0, $0		# cargar en $v0 = a = mcd(a,b)
 	jr $ra				# volver al punto de llamado
+############################################################################################################
