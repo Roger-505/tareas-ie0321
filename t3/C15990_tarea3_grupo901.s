@@ -79,15 +79,15 @@ solicitudMCD:
 printStr:
 	addi $v0, $0, 4			# cargar código (4) en $v0 para imprimir string en $a0 = Dir[string]
 	syscall				# syscall para imprimir string
-	jr $ra
+	jr $ra				# volver al punto de llamado
 printInt:
 	addi $v0, $0, 1			# cargar código (1) en $v0 para imprimir un int
 	syscall				# syscall para imprimir un int
 	jr $ra				# volver al punto de llamado
 readInt:
 	addi $v0, $0, 5			# cargar código (5) en $v0 para leer un int de la terminal y guardar en $v0 = integer
-	syscall				
-	jr $ra				# syscall para leer int 
+	syscall				# syscall para leer un int
+	jr $ra				# volver al punto de llamado
 errorSolicitud:
 	addi $sp, $sp, -4		# ajustar stack pointer para apilar un word
 	sw $ra, 0($sp)			# apilar $ra, ya que se utilizará la función jal en solicitudMCD
