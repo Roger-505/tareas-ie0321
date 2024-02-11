@@ -57,8 +57,6 @@ solicitudMCD:
 	lw $ra, 0($sp)		# recuperar valor de $ra apilado
 	addi $sp, $sp, 4	# ajustar stack pointer a su valor previo al llamado de la función
 	jr $ra			# volver al punto de llamado
-solicitudInt:
-
 printStr:
 
 printInt:
