@@ -16,10 +16,10 @@
 # sección de data
 .data
 msgError:		.asciiz "Porfavor, digite únicamente números mayores que 0\n"
-msgSolicitud_a: 	.asciiz "Ingrese el primer número para obtener el MCD: "
+msgSolicitud_a: 	.asciiz "\nIngrese el primer número para obtener el MCD: "
 msgSolicitud_b:		.asciiz "Ingrese el segundo número para obtener el MCD: "
 msgMCD:			.asciiz "El MCD entre los números ingresados es: "
-saltoDeLinea:		.asciiz "\n"
+
 # sección de texto
 .text
 ############################################################################################################
@@ -31,12 +31,14 @@ main:
 	add $a0, $v0, 0 		# inicializar $a0 = a para la función mcd
 	add $a1, $v1, 0			# inicializar $a1 = b para la función mcd
 	jal mcd				# saltar a la función mcd para calcular mcd(a,b)
-
-	add $a0, $v0, 0			# inicializar $a0 = mcd(a,b) para imprimir mcd(a,b) 
-	la $a1, msgMCD    		# inicializar $a1 = Dir[msgMCD]
-	jal printStr			# saltar a la función printStr para imprimir mensaje para desplegar mcd(a,b)
-	jal printInt 			# saltar a la función para imprimir mcd(a,b)
+	add $t0, $v0, 0			# guardar temporalmente en $t0 = mcd(a,b)  
 	
+	la $a0, msgMCD    		# inicializar $a1 = Dir[msgMCD]
+	jal printStr			# saltar a la función printStr para imprimir mensaje para desplegar mcd(a,b)
+	
+	add $a0, $t0, 0			# inicializar $a0 = mcd(a,b) para imprimir mcd(a,b) 
+	jal printInt 			# saltar a la función para imprimir mcd(a,b)
+
 	j main				# volver a solicitar a y b para calcular mcd(a,b)
 
 ############################################################################################################
@@ -80,7 +82,7 @@ printStr:
 	jr $ra
 readInt:
 	addi $v0, $0, 5			# cargar código (5) en $v0 para leer un int de la terminal y guardar en $v0 = integer
-	syscall
+	syscall				
 	jr $ra				# syscall para leer int 
 errorSolicitud:
 	addi $sp, $sp, -4		# ajustar stack pointer para apilar un word
@@ -92,11 +94,8 @@ errorSolicitud:
 	lw $ra, 0($sp)			# recuperar valor de $ra apilado
 	addi $sp, $sp, 4		# ajustar stack pointer a su valor previo al llamado de la función
 	jr $a3				# saltar a la instrucción en la dirección $a3, para volver a solicitar al usuario a, o b
-
 printInt:
-	
+	addi $v0, $0, 1			# cargar código (1) en $v0 para imprimir un int
+	syscall				# syscall para imprimir un int
 mcd:
-
-# prueba, para verificar main y terminar el programa (no se va a terminar con un syscall en el programa final)
-li $v0, 10
-syscall 	 		# EXIT
+	jr $ra				# POR IMPLEMENTAR
