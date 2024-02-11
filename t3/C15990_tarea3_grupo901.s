@@ -12,7 +12,8 @@
 # tarea, al igual que el resto de las tareas del curso:
 #
 # https://github.com/Roger-505/tareas-ie0321.git
-#sección de data
+
+# sección de data
 .data
 msgError:		.asciiz "Porfavor, digite únicamente números mayores que 0"
 msgSolicitud_a: 	.asciiz "Ingrese el primer número para obtener el MCD: "
@@ -21,12 +22,11 @@ msgMCD:			.asciiz "El MCD entre los números ingresados es: "
 
 # sección de texto
 .text
-# función principal
+############################################################################################################
+#						MAIN
+############################################################################################################	
 main:
-	la $a0, msgSolicitud_a 	# inicializar $a0 = Dir[msgSolicitud_a]
-	la $a1, msgSolicitud_b	# incializar $a1 = Dir[msgSolicitud_b]
-	la $a2, msgError	# inicializar $a2 = Dir[msgError]
-	jal solicitudInt	# saltar a la función solicitudInt para obtener a y b del usuario
+	jal solicitudMCD	# saltar a la función solicitudMCD para obtener a y b del usuario
 	
 	add $a0, $v0, 0 	# inicializar $a0 = a para la función mcd
 	add $a1, $v1, 0		# inicializar $a1 = b para la función mcd
@@ -34,21 +34,40 @@ main:
 
 	add $a0, $v0, 0		# inicializar $a0 = mcd(a,b) para imprimir mcd(a,b) 
 	la $a1, msgMCD    	# inicializar $a1 = Dir[msgMCD]
-	jal print		# saltar a la función print para imprimir mcd(a,b)
+	jal printStr		# saltar a la función printStr para imprimir mensaje para desplegar mcd(a,b)
+	jal printInt 		# saltar a la función para imprimir mcd(a,b)
 	
 	j main			# volver a solicitar a y b para calcular mcd(a,b)
+
+############################################################################################################
+#			SOLICITUD DE INTS DEL USUARIO, E IMPRESIÓN DE STRINGS E INTS  
+############################################################################################################	
+solicitudMCD:
+	addi $sp, $sp, -4	# ajustar stack pointer para apilar un word
+	sw $ra, 0($sp)		# apilar $ra, ya que se utilizará la función jal en solicitudMCD
 	
+	la $a0, msgSolicitud_a 	# inicializar $a0 = Dir[msgSolicitud_a]
+	jal printStr		# saltar a la función printStr para imprimir msgSolicitud_a
+	jal readInt		# saltar a la función readInt para leer un int de la terminal, y devolver $v0 = a
+	
+	la $a1, msgSolicitud_b	# incializar $a1 = Dir[msgSolicitud_b]
+	jal printStr		# saltar a la función printStr para imprimir msgSolicitud_b
+	jal readInt		# saltar a la función readInt para leer un int de la terminal, y devolver $v0 = b
+	
+	lw $ra, 0($sp)		# recuperar valor de $ra apilado
+	addi $sp, $sp, 4	# ajustar stack pointer a su valor previo al llamado de la función
+	jr $ra			# volver al punto de llamado
 solicitudInt:
-	la $a0, msgSolicitud_a	# inicializar $a0 = Dir[msgSolicitud_a]
-	addi $v0, $0, 4		# cargar código (4) para imprimir un string en la terminal
-	syscall
-	
-	addi $v0, $0, 5		# cargar código (5) para leer un int de la terminal
-	syscall
-	add $t0, $0, $v0	# $t0 = a
+
+printStr:
+
+printInt:
+
+readInt:
+
 mcd:
 
-print:
+
 
 # prueba, para verificar main y terminar el programa (no se va a terminar con un syscall en el programa final)
 li $v0, 10
