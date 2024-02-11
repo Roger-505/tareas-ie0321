@@ -80,6 +80,10 @@ printStr:
 	addi $v0, $0, 4			# cargar código (4) en $v0 para imprimir string en $a0 = Dir[string]
 	syscall				# syscall para imprimir string
 	jr $ra
+printInt:
+	addi $v0, $0, 1			# cargar código (1) en $v0 para imprimir un int
+	syscall				# syscall para imprimir un int
+	jr $ra				# volver al punto de llamado
 readInt:
 	addi $v0, $0, 5			# cargar código (5) en $v0 para leer un int de la terminal y guardar en $v0 = integer
 	syscall				
@@ -94,9 +98,5 @@ errorSolicitud:
 	lw $ra, 0($sp)			# recuperar valor de $ra apilado
 	addi $sp, $sp, 4		# ajustar stack pointer a su valor previo al llamado de la función
 	jr $a3				# saltar a la instrucción en la dirección $a3, para volver a solicitar al usuario a, o b
-printInt:
-	addi $v0, $0, 1			# cargar código (1) en $v0 para imprimir un int
-	syscall				# syscall para imprimir un int
-	jr $ra				# volver al punto de llamado
 mcd:
 	jr $ra				# POR IMPLEMENTAR
