@@ -37,7 +37,7 @@
 #		- Argumentos: $a0 = integer										#
 #		- Returns: Impresión de integer en la terminal								#
 #															#
-#      readInt: Lee de la terminal un int.										#
+#      readInt: Lee de la terminal un int por medio de un syscall.							#
 #		- Argumetnos: No posee argumentos de entrada.								#
 #		- Returns: $v0 = integer										#
 #															#
@@ -68,7 +68,7 @@ main:
 	jal mcd				# saltar a la función mcd para calcular mcd(a,b)
 	add $t0, $v0, 0			# guardar temporalmente en $t0 = mcd(a,b)  
 	
-	la $a0, msgMCD    		# inicializar $a1 = Dir[msgMCD]
+	la $a0, msgMCD    		# inicializar $a0 = Dir[msgMCD]
 	jal printStr			# saltar a la función printStr para imprimir mensaje para desplegar mcd(a,b)
 	
 	add $a0, $t0, 0			# inicializar $a0 = mcd(a,b) para imprimir mcd(a,b) 
@@ -96,7 +96,7 @@ solicitudMCD:
 	beq $t3, $t2, errorSolicitud	# si a < 1, saltar a errorSolicitud para desplegar un mensaje de error
 
 	solicitudLoop_b:
-	la $a0, msgSolicitud_b		# incializar $a1 = Dir[msgSolicitud_b]
+	la $a0, msgSolicitud_b		# incializar $a0 = Dir[msgSolicitud_b]
 	jal printStr			# saltar a la función printStr para imprimir msgSolicitud_b
 	jal readInt			# saltar a la función readInt para leer un int de la terminal, y devolver $v0 = b
 	add $t1, $v0, $0		# cargar en $t1 = $v0 = b, después de haber sido leido de la terminal
@@ -116,7 +116,7 @@ printStr:
 	syscall				# syscall para imprimir string
 	jr $ra				# volver al punto de llamado
 printInt:
-	addi $v0, $0, 1			# cargar código (1) en $v0 para imprimir un int
+	addi $v0, $0, 1			# cargar código (1) en $v0 para imprimir un int en $a0 = integer
 	syscall				# syscall para imprimir un int
 	jr $ra				# volver al punto de llamado
 readInt:
@@ -138,15 +138,15 @@ errorSolicitud:
 #			FUNCIÓN MCD PARA CALCULAR EL MÁXIMO COMÚN DIVISOR DE A Y B       		   #
 ############################################################################################################	
 mcd:
-	beq $a1, $0, mcdEnd		# si b == 0, saltar a mcdEnd para devolver mcd(a,b) en $a0 
+	beq $a1, $0, mcdEnd		# si b == 0, saltar a mcdEnd para devolver mcd(a,b)
 	
-	div $a0, $a1			# $a0 / $a1 para obtener el residuo a mod b
+	div $a0, $a1			# $a0 / $a1 para obtener el módulo a mod b
 	add $a0, $a1, $0		# $a0 = b, va ser ahora el primer parámetro de la función mcd
 	mfhi $a1			# $a1 = a mod b
 	
-	j mcd				# ejecutar la función con distintos parámetros, mcd(b, a mod b)
+	j mcd				# ejecutar la función de nuevo, ahora con distintos parámetros. mcd(b, a mod b)
 	
 	mcdEnd:
-	add $v0, $a0, $0		# cargar en $v0 = a = mcd(a,b)
+	add $v0, $a0, $0		# cargar en $v0 = a = $a0 = mcd(a,b)
 	jr $ra				# volver al punto de llamado
 ############################################################################################################
