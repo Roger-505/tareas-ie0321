@@ -43,5 +43,40 @@ readInt:
 	jr $ra				# volver al punto de llamado
 	
 farey:
+	addi $sp, $sp, -4		# ajustar stack pointer para apilar un elemento
+	sw $ra, 0($sp)			# apilar $ra, ya que se utilizará jal en la subrutina farey
+	
+	jal fareyFraccion		# saltar a la subrutina fareyFraccion para formar la serie de fracciones inicial en la pila
+	
+	jal fareyMayorAuno		# saltar a la subrutina fareyMayorAuno para eliminar los elementos mayores a 1 de la serie
+	
+	jal fareySimplificar		# saltar a la subrutina fareySimplificar para simplificar las fracciones de la serie
+	
+	jal fareyRepetidos		# saltar a la subrutina fareyRepetidos para eliminar los elementos repetidos de la serie
+	
+	jal fareySort			# saltar a la subrutina fareySort para ordenar los elementos de la serie en orden ascendente
+	
+	jal fareyExtremos		# saltar a la subrutina fareyExtremos para agregar el término 0/1 al inicio de la serie, y 1/0 al final
+	
+	
+	lw $ra, 0($sp)			# recuperar valor de $ra apilado
+	addi $sp, $sp, 4		# reajustar el valor del stack pointer
+	jr $ra				# volver al punto de llamado
+
+fareyFraccion:
 	jr $ra
 
+fareyMayorAuno:
+	jr $ra
+
+fareySimplificar:
+	jr $ra
+	
+fareyRepetidos:
+	jr $ra
+	
+fareySort:
+	jr $ra
+
+fareyExtremos:
+	jr $ra 
