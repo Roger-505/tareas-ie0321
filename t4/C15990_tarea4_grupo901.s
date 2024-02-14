@@ -63,9 +63,6 @@ main:
 	add $a0, $v0, $0		# cargar en $a0 = n digitado por el usuario
 	jal farey			# saltar a la subrutina farey, para calcular la F_n
 	
-	la $a0, Fn			# carga en $a0 = F_n
-	jal printStr			# saltar a la subrutina printStr, para imprimir F_n
-	
 	j main				# volver a solicitar n para calcular F_n
 	
 printStr:
