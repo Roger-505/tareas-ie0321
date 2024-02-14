@@ -13,6 +13,37 @@
 #
 # https://github.com/Roger-505/tareas-ie0321.git
 
+#########################################################################################################################
+#					EXPLICACIÓN DE LA IMPLEMENTACIÓN						#		   		   
+#########################################################################################################################
+#
+# Se implementó 1 subrutina para resolver el problema indicado en el enunciado de la tarea:
+# 
+# 	      farey: Calcula la sucesión de farey F_n (de orden n) por medio de los pasos 
+#		     indicados en el enunciado de la tarea.
+#		     	- Argumentos: $a0 = n 
+#			- Returns: $v0 = F_n (string con la sucesión)
+#
+# A continuación, se muestra un ejemplo del funcionamiento de la subrutina anterior. Si $a0 = 5, farey devolvería:
+#
+#	$v0 = "{0/1, 1/5, 1/4, 1/3, 2/5, 1/2, 3/5, 2/3, 3/4, 4/5, 1/0}"
+# 
+# Se reutilizaron 3 subrutinas diseñadas en la tarea #3 del curso:
+#
+#          printStr: Imprime en la terminal un string por medio de un syscall.						
+#			- Argumentos: $a0 = Dir[string]										
+#		        - Returns: Impresión de string en la terminal								
+#															
+# 	    readInt: Lee de la terminal un int por medio de un syscall.							
+#			- Argumetnos: No posee argumentos de entrada.								
+#			- Returns: $v0 = integer		
+#	
+# 	        mcd: Calcula el máximo común divisor de dos números enteros mayores a cero,  por medio 
+#		     del algoritmo de Euclides tradicional, implementado de manera recurrente.						
+#			- Argumentos: $a0 = a (primer número), $a1 = b (segundo número)						
+#			- Returns: $v0 = mcd(a,b) (el máximo común divisor de a y b)	
+#	
+
 # seccion de data
 .data
 msgFarey:	.asciiz "Ingrese un número natural para entregar la sucesión de Farey:\n"
@@ -45,42 +76,8 @@ readInt:
 farey:
 	addi $sp, $sp, -4		# ajustar stack pointer para apilar un elemento
 	sw $ra, 0($sp)			# apilar $ra, ya que se utilizará jal en la subrutina farey
-	
-	jal fareyFraccion		# saltar a la subrutina fareyFraccion para formar la serie de fracciones inicial en la pila
-	
-	jal fareyMayorAuno		# saltar a la subrutina fareyMayorAuno para eliminar los elementos mayores a 1 de la serie
-	
-	jal fareySimplificar		# saltar a la subrutina fareySimplificar para simplificar las fracciones de la serie
-	
-	jal fareyRepetidos		# saltar a la subrutina fareyRepetidos para eliminar los elementos repetidos de la serie
-	
-	jal fareySort			# saltar a la subrutina fareySort para ordenar los elementos de la serie en orden ascendente
-	
-	jal fareyExtremos		# saltar a la subrutina fareyExtremos para agregar el término 0/1 al inicio de la serie, y 1/0 al final
-	
-	jal fareyString			# saltar a la subrutina fareyString para generar un string con la sucesión de farey calculada
-	
+
 	lw $ra, 0($sp)			# recuperar valor de $ra apilado
 	addi $sp, $sp, 4		# reajustar el valor del stack pointer
 	jr $ra				# volver al punto de llamado
 
-fareyFraccion:
-	jr $ra
-
-fareyMayorAuno:
-	jr $ra
-
-fareySimplificar:
-	jr $ra
-	
-fareyRepetidos:
-	jr $ra
-	
-fareySort:
-	jr $ra
-	
-fareyString;
-	jr $ra
-
-fareyExtremos:
-	jr $ra 
