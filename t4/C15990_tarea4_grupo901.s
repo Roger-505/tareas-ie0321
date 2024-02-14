@@ -19,14 +19,13 @@
 #
 # Se implementó 1 subrutina para resolver el problema indicado en el enunciado de la tarea:
 # 
-# 	      farey: Calcula la sucesión de farey F_n (de orden n) por medio de los pasos 
-#		     indicados en el enunciado de la tarea.
+# 	      farey: Calcula la sucesión de farey F_n (de orden n) recursivamente.
 #		     	- Argumentos: $a0 = n 
-#			- Returns: $v0 = F_n (string con la sucesión)
+#			- Returns: Impresión de F_n en la terminal
 #
-# A continuación, se muestra un ejemplo del funcionamiento de la subrutina anterior. Si $a0 = 5, farey devolvería:
+# A continuación, se muestra un ejemplo del funcionamiento de la subrutina anterior. Si $a0 = 5, farey imprimiría:
 #
-#	$v0 = "{0/1, 1/5, 1/4, 1/3, 2/5, 1/2, 3/5, 2/3, 3/4, 4/5, 1/0}"
+#	"{0/1, 1/5, 1/4, 1/3, 2/5, 1/2, 3/5, 2/3, 3/4, 4/5, 1/0}"
 # 
 # Se reutilizaron 3 subrutinas diseñadas en la tarea #3 del curso:
 #
