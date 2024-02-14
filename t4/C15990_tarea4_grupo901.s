@@ -46,8 +46,7 @@
 # seccion de data
 .data
 msgFarey:	.asciiz "Ingrese un número natural para entregar la sucesión de Farey:\n"
-Fn:		.asciiz "SUCESION FAREY POR IMPLEMENTAR\n"
-basckSlash:	.asciiz "\\"
+Slash:		.asciiz "/"
 spaceAndComma:	.asciiz ", "
 openBracket:	.asciiz "{"
 closeBracket:	.asciiz "}\n"
@@ -137,8 +136,8 @@ fareyPrint:
 	sw $ra, 0($sp)			# apilar $ra, ya que se utilizará jal en la subrutina fareyPrint
 	
 	jal printInt			# imprimir $a0 = num
-	la $a0, basckSlash		# cargar en $a0 = Dir["\"]
-	jal printStr			# imprimir "\"
+	la $a0, Slash			# cargar en $a0 = Dir["/"]
+	jal printStr			# imprimir "/"
 	add $a0, $0, $a1		# cargar en $a0 = den
 	jal printInt			# imprimir $a0 = den
 	la $a0, spaceAndComma		# cargar en $a0 = Dir[", "]
@@ -152,16 +151,15 @@ endFarey:
 	# impresión de "1/0"
 	addi $a0, $0, 1			# $a0 = 1
 	jal printInt			# imprimir $a0 = 1
-	la $a0, basckSlash		# cargar en $a0 = Dir["\"]
-	jal printStr			# imprimir "\"
+	la $a0, Slash			# cargar en $a0 = Dir["/"]
+	jal printStr			# imprimir "/"
 	addi $a0, $0, 0			# cargar en $a0 = 0
 	jal printInt			# imprimir $a0 = 0
 	
 	# impresión de "}"
 	la $a0, closeBracket		# cargar en $a0 = Dir["{"]
-	jal printStr			# imprimir "{"	la $a0, basckSlash	
+	jal printStr			# imprimir "{"		
 	
 	lw $ra, 0($sp)			# recuperar valor de $ra apilado
 	addi $sp, $sp, 4		# reajustar el valor del stack pointer
 	jr $ra				# volver al punto de llamado
-
