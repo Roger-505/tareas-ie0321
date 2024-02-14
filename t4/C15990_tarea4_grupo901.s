@@ -58,6 +58,7 @@ farey:
 	
 	jal fareyExtremos		# saltar a la subrutina fareyExtremos para agregar el término 0/1 al inicio de la serie, y 1/0 al final
 	
+	jal fareyString			# saltar a la subrutina fareyString para generar un string con la sucesión de farey calculada
 	
 	lw $ra, 0($sp)			# recuperar valor de $ra apilado
 	addi $sp, $sp, 4		# reajustar el valor del stack pointer
@@ -76,6 +77,9 @@ fareyRepetidos:
 	jr $ra
 	
 fareySort:
+	jr $ra
+	
+fareyString;
 	jr $ra
 
 fareyExtremos:
