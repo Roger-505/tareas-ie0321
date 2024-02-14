@@ -37,12 +37,10 @@
 # 	    readInt: Lee de la terminal un int por medio de un syscall.							
 #			- Argumetnos: No posee argumentos de entrada.								
 #			- Returns: $v0 = integer		
-#	
-# 	        mcd: Calcula el máximo común divisor de dos números enteros mayores a cero,  por medio 
-#		     del algoritmo de Euclides tradicional, implementado de manera recurrente.						
-#			- Argumentos: $a0 = a (primer número), $a1 = b (segundo número)						
-#			- Returns: $v0 = mcd(a,b) (el máximo común divisor de a y b)	
-#	
+#
+#    	   printInt: Imprime en la terminal un int por medio de un syscall							
+#			- Argumentos: $a0 = integer										
+#			- Returns: Impresión de integer en la terminal							
 
 # seccion de data
 .data
