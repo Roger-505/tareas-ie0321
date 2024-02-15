@@ -80,6 +80,10 @@ closeBracket:	.asciiz "}\n"
 
 # sección de texto
 .text
+
+#################################################################################################################################
+#							MAIN									#
+#################################################################################################################################
 main:
 	la $a0, msgFarey 		# inicializar $a0 = Dir[msgFarey]
 	jal printStr			# saltar a la función printStr para imprimir msgFarey
@@ -89,7 +93,10 @@ main:
 	jal farey			# saltar a la subrutina farey, para calcular la F_n
 	
 	j main				# volver a solicitar n para calcular F_n
-	
+
+#################################################################################################################################
+#					IMPRESIÓN DE STRINGS, Y, LECTURA E IMPRESIÓN DE INTS					#
+#################################################################################################################################
 printStr:
 	addi $v0, $0, 4			# cargar código (4) en $v0 para imprimir string en $a0 = Dir[string]
 	syscall				# syscall para imprimir string
@@ -102,7 +109,10 @@ printInt:
 	addi $v0, $0, 1			# cargar código (1) en $v0 para imprimir un int en $a0 = integer
 	syscall				# syscall para imprimir int
 	jr $ra 				# volver al punto de llamado
-	
+
+#################################################################################################################################
+#						OBTENCIÓN DE LA SECUENCIA DE FAREY						#
+#################################################################################################################################
 farey:
 	addi $sp, $sp, -4		# ajustar stack pointer para apilar un elemento
 	sw $ra, 0($sp)			# apilar $ra, ya que se utilizará jal en la subrutina farey
@@ -157,6 +167,9 @@ farey:
 	
 	j fareyLoop			# saltar para calcular el próximo elemento de la sucesión
 
+#################################################################################################################################
+#					IMPRESIÓN DE LOS ELEMENTOS DE LA SECUENCIA DE FAREY					#
+#################################################################################################################################
 # $a0 = num, $a1 = den, $a3 = end
 fareyPrint:	
 	addi $sp, $sp, -4		# ajustar stack pointer para apilar un elemento
@@ -173,7 +186,10 @@ fareyPrint:
 	lw $ra, 0($sp)			# recuperar valor de $ra apilado
 	addi $sp, $sp, 4		# reajustar el valor del stack pointer
 	jr $ra				# volver al punto de llamado
-	
+
+#################################################################################################################################
+#				FINALIZAR LA IMPRESIÓN DE ELEMENTOS DE LA SECUENCIA DE FAREY					#
+#################################################################################################################################
 endFarey:
 	# impresión de "1/0"
 	addi $a0, $0, 1			# $a0 = 1
