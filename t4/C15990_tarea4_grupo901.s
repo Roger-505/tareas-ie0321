@@ -60,7 +60,7 @@
 #		     separados por el string ", " además del numerador y el denominador						#
 #		     separados por el string "/"										#
 #		     - Argumentos: $a0 = numerador, $a1 = denominador								#
-#		     - Returns: Impresión en la terminal de "numerador/denominador						#
+#		     - Returns: Impresión en la terminal de "numerador/denominador, "						#
 #																#
 # Se reutilizaron 3 subrutinas diseñadas en la tarea #3 del curso:								#
 #																#
