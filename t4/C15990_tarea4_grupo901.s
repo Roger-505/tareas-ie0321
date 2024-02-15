@@ -13,35 +13,62 @@
 #
 # https://github.com/Roger-505/tareas-ie0321.git
 
-## TODO: Explicar como funciona el método recursivo del cálculo de F_n
-
-#########################################################################################################################
-#					EXPLICACIÓN DE LA IMPLEMENTACIÓN						#		   		   
-#########################################################################################################################
-#
-# Se implementó 1 subrutina para resolver el problema indicado en el enunciado de la tarea:
-# 
-# 	      farey: Calcula la sucesión de farey F_n (de orden n) recursivamente.
-#		     	- Argumentos: $a0 = n 
-#			- Returns: Impresión de F_n en la terminal
-#
-# A continuación, se muestra un ejemplo del funcionamiento de la subrutina anterior. Si $a0 = 5, farey imprimiría:
-#
-#	"{0/1, 1/5, 1/4, 1/3, 2/5, 1/2, 3/5, 2/3, 3/4, 4/5, 1/0}"
-# 
-# Se reutilizaron 3 subrutinas diseñadas en la tarea #3 del curso:
-#
-#          printStr: Imprime en la terminal un string por medio de un syscall.						
-#			- Argumentos: $a0 = Dir[string]										
-#		        - Returns: Impresión de string en la terminal								
-#															
-# 	    readInt: Lee de la terminal un int por medio de un syscall.							
-#			- Argumetnos: No posee argumentos de entrada.								
-#			- Returns: $v0 = integer		
-#
-#    	   printInt: Imprime en la terminal un int por medio de un syscall							
-#			- Argumentos: $a0 = integer										
-#			- Returns: Impresión de integer en la terminal							
+#################################################################################################################################
+#						EXPLICACIÓN DE LA IMPLEMENTACIÓN						#		   		   
+#################################################################################################################################
+#																#
+# Se implementó 1 subrutina para resolver el problema indicado en el enunciado de la tarea:					#
+# 																#
+# 	      farey: Calcula la sucesión de farey F_n (de orden n) recursivamente.						#
+#		     	- Argumentos: $a0 = n 											#
+#			- Returns: Impresión de F_n en la terminal								#
+#																#
+# A continuación, se muestra un ejemplo del funcionamiento de la subrutina anterior. Si $a0 = 5, farey imprimiría:		#
+#																#
+#	"{0/1, 1/5, 1/4, 1/3, 2/5, 1/2, 3/5, 2/3, 3/4, 4/5, 1/0}"								#
+# 																#
+# La demostración matemática asociada a este algoritmo recursivo para calcular Fn se explica a fondo en el siguiente 		#
+# artículo: https://en.wikipedia.org/wiki/Farey_sequence#Next_term. 								#
+#																#
+# Dadas dos elementos de la secuencia Fn, a/b y c/d, es posible calcular el próximo elemento de la sucesión, p/q, por medio	#
+# de las siguiente ecuaciones:													#
+#																#
+#	p = floor( (n + b)/d ) * c - a												#
+#	q = floor( (n + b)/d ) * d - b												#
+#																#
+# Y para calcular el elemento siguiente a p/q, se debe realizar la reasignación de variables, tal que:				#
+#																#
+#	a/b <- c/d														#
+# 	c/d <- p/q														#
+#																#
+# La condición de parada es p > n. En dicho caso, se para de generar elementos de la sucesión, y se coloca el 			#
+# elemmento 1/0 al final de la sucesión.											#
+#																#
+# Ya que se necesitan dos elementos de Fn para calcular el próximo elemento, se inicia la generación de los elementos		#
+# de Fn con los valores iniciales a/b = 0/1, y c/d = 1/n. 									#
+#																#
+# El valor inicial de c/d es el indicado debido a que la sucesión de Farey de orden n es una secuencia 				#
+# de fracciones reducidas, y de estos elementos, el segundo menor elemento será 1/n, seguido por 0/1. Por tanto, todas 		#
+# las secuencias de Farey de orden n tendrán como primeros dos elementos 0/1, seguido por 1/n. 					#
+#																#
+# Note que este algoritmo genera cada elemento de la sucesión en su forma ya reducida. Por tanto, no es necesario		#
+# hacer uso de la función mcd implementada en la tarea 3 del curso. 								#
+# 																#
+# Se reutilizaron 3 subrutinas diseñadas en la tarea #3 del curso:								#
+#																#
+#          printStr: Imprime en la terminal un string por medio de un syscall.							#
+#			- Argumentos: $a0 = Dir[string]										#
+#		        - Returns: Impresión de string en la terminal								#
+#																#
+# 	    readInt: Lee de la terminal un int por medio de un syscall.								#
+#			- Argumetnos: No posee argumentos de entrada.								#
+#			- Returns: $v0 = integer										#
+#																#
+#    	   printInt: Imprime en la terminal un int por medio de un syscall							#
+#			- Argumentos: $a0 = integer										#
+#			- Returns: Impresión de integer en la terminal								#
+#																#
+#################################################################################################################################
 
 # seccion de data
 .data
