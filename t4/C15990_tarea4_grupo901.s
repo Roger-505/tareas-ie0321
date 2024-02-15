@@ -17,7 +17,7 @@
 #						EXPLICACIÓN DE LA IMPLEMENTACIÓN						#		   		   
 #################################################################################################################################
 #																#
-# Se implementó 1 subrutina para resolver el problema indicado en el enunciado de la tarea:					#
+# Se implementaron 2 subrutinas para resolver el problema indicado en el enunciado de la tarea:					#
 # 																#
 # 	      farey: Calcula la sucesión de farey F_n (de orden n) recursivamente.						#
 #		     	- Argumentos: $a0 = n 											#
@@ -52,8 +52,16 @@
 # las secuencias de Farey de orden n tendrán como primeros dos elementos 0/1, seguido por 1/n. 					#
 #																#
 # Note que este algoritmo genera cada elemento de la sucesión en su forma ya reducida. Por tanto, no es necesario		#
-# hacer uso de la función mcd implementada en la tarea 3 del curso. 								#
-# 																#
+# hacer uso de la función mcd implementada en la tarea 3 del curso para reducir las fracciones de la sucesión 			#
+#																#
+# La otra subrutina diseñada para obtener Fn es fareyPrint:									#
+#																#
+# 	 fareyPrint: Imprime en la terminal cada elemento de la secuencia de Farey, 						#
+#		     separados por el string ", " además del numerador y el denominador						#
+#		     separados por el string "/"										#
+#		     - Argumentos: $a0 = numerador, $a1 = denominador								#
+#		     - Returns: Impresión en la terminal de "numerador/denominador						#
+#																#
 # Se reutilizaron 3 subrutinas diseñadas en la tarea #3 del curso:								#
 #																#
 #          printStr: Imprime en la terminal un string por medio de un syscall.							#
@@ -170,7 +178,6 @@ farey:
 #################################################################################################################################
 #					IMPRESIÓN DE LOS ELEMENTOS DE LA SECUENCIA DE FAREY					#
 #################################################################################################################################
-# $a0 = num, $a1 = den, $a3 = end
 fareyPrint:	
 	addi $sp, $sp, -4		# ajustar stack pointer para apilar un elemento
 	sw $ra, 0($sp)			# apilar $ra, ya que se utilizará jal en la subrutina fareyPrint
@@ -206,3 +213,5 @@ endFarey:
 	lw $ra, 0($sp)			# recuperar valor de $ra apilado
 	addi $sp, $sp, 4		# reajustar el valor del stack pointer
 	jr $ra				# volver al punto de llamado
+
+#################################################################################################################################
