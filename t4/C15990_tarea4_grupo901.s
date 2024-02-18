@@ -30,7 +30,7 @@
 # La demostración matemática asociada a este algoritmo recursivo para calcular Fn se explica a fondo en el siguiente 		#
 # artículo: https://en.wikipedia.org/wiki/Farey_sequence#Next_term. 								#
 #																#
-# Dadas dos elementos de la secuencia Fn, a/b y c/d, es posible calcular el próximo elemento de la sucesión, p/q, por medio	#
+# Dados dos elementos de la secuencia Fn, a/b y c/d, es posible calcular el próximo elemento de la sucesión, p/q, por medio	#
 # de las siguiente ecuaciones:													#
 #																#
 #	p = floor( (n + b)/d ) * c - a												#
@@ -124,7 +124,7 @@ printInt:
 farey:
 	addi $sp, $sp, -4		# ajustar stack pointer para apilar un elemento
 	sw $ra, 0($sp)			# apilar $ra, ya que se utilizará jal en la subrutina farey
-	add $t4, $a0, $0		# n = $t4
+	add $t4, $a0, $0		# $t4 = n 
 	
 	add $t0, $0, $0			# a = $t0 = 0 (numerador)
 	addi $t1, $0, 1			# b = $t1 = 1 (denominador)
@@ -133,7 +133,7 @@ farey:
 	
 	# impresión de "{"
 	la $a0, openBracket		# cargar en $a0 = Dir["{"]
-	jal printStr			# imprimir "{"	la $a0, basckSlash	
+	jal printStr			# imprimir "{"	
 	
 	# impresión de "0/1, "
 	add $a0, $t0, $0		# $a0 = 0
@@ -150,18 +150,18 @@ farey:
 	div $t6, $t3			# calcular floor( (n+b)/d ). Es decir, la división entera
 	mflo $t6			# $t6 = floor( (n+b)/d )
 	
-	# cálculo de p = $t7
+	# cálculo de $t7 = p
 	mult $t6, $t2			# calcular floor( (n+b)/d ) * c
 	mflo $t7			# $t7 = floor( (n+b)/d ) * c
-	sub $t7, $t7, $t0		# p = floor( (n+b)/d ) * c - a
+	sub $t7, $t7, $t0		# $t7 = p = floor( (n+b)/d ) * c - a
 	
-	# cálculo de q = $t8
+	# cálculo de $t8 = q
 	mult $t6, $t3			# calcular floor( (n+b)/d ) * d
 	mflo $t8			# $t8 = floor( (n+b)/d ) * d
-	sub $t8, $t8, $t1		# q = floor( (n+b)/d ) * d - b
+	sub $t8, $t8, $t1		# $t8 = q = floor( (n+b)/d ) * d - b
 	
-	slt $t5, $t7, $t4		# si c < n, $t5 = 1
-	beq $t5, $0, endFarey		# si c >= n, terminar de calcular elementos de la sucesión
+	slt $t5, $t7, $t4		# si p < n, $t5 = 1
+	beq $t5, $0, endFarey		# si p >= n, terminar de calcular elementos de la sucesión
 	
 	add $a0, $t7, $0		# $a0 = p
 	add $a1, $t8, $0		# $a1 = q
@@ -206,9 +206,9 @@ endFarey:
 	addi $a0, $0, 0			# cargar en $a0 = 0
 	jal printInt			# imprimir $a0 = 0
 	
-	# impresión de "}"
-	la $a0, closeBracket		# cargar en $a0 = Dir["{"]
-	jal printStr			# imprimir "{"		
+	# impresión de "}\n"
+	la $a0, closeBracket		# cargar en $a0 = Dir["}\n"]
+	jal printStr			# imprimir "}\n"		
 	
 	lw $ra, 0($sp)			# recuperar valor de $ra apilado
 	addi $sp, $sp, 4		# reajustar el valor del stack pointer
